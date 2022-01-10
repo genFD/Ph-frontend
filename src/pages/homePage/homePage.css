@@ -30,6 +30,10 @@ nav {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   transition: width 0.6s linear;
 }
+nav span {
+  margin-left: 3rem;
+  cursor: pointer;
+}
 nav ul {
   display: flex;
   margin-right: 3rem;
@@ -55,12 +59,12 @@ ul.active li {
   opacity: 1;
   transform: rotateY(360deg);
 }
-nav ul a {
+/* nav ul a {
   position: relative;
   color: #fff;
   text-decoration: none;
   margin: 0 10px;
-}
+} */
 .icon {
   cursor: pointer;
   background: transparent;
