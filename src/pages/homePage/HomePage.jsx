@@ -1,16 +1,16 @@
-import React, { useState } from 'react'
-import {FaShoppingCart, FaUserAstronaut, FaHeadphones} from 'react-icons/fa'
-import { Link } from 'react-router-dom'
-import './homePage.css'
+import React, { useState } from 'react';
+import { FaShoppingCart, FaUserAstronaut, FaHeadphones } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import './homePage.css';
 
 const HomePage = () => {
- return (
-  <div className='container'>
-   <Navbar/>
-    <ProductsList/>
-  </div>
- )
-}
+  return (
+    <div className='container'>
+      <Navbar />
+      <ProductsList />
+    </div>
+  );
+};
 
 const Navbar = () => {
   const [openNav, setOpenNav] = useState(false);
@@ -50,12 +50,11 @@ const Navbar = () => {
               <FaUserAstronaut
                 size={18}
                 style={{
-                  color: '#64ffda',
+                  color: 'red',
                 }}
               />
             </Link>
           </li>
-         
         </div>
       </ul>
     </nav>
@@ -66,6 +65,4 @@ const ProductsList = () => {
   return <div>ProductsList</div>;
 };
 
-
-
-export default HomePage
+export default HomePage;
