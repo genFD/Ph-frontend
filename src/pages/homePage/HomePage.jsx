@@ -55,7 +55,7 @@ const Navbar = () => {
               />
             </Link>
           </li>
-          {/* <li><a href="">light</a></li> */}
+         
         </div>
       </ul>
     </nav>
