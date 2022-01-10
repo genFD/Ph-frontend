@@ -50,7 +50,7 @@ const Navbar = () => {
               <FaUserAstronaut
                 size={18}
                 style={{
-                  color: 'blue',
+                  color: '#64ffda',
                 }}
               />
             </Link>
