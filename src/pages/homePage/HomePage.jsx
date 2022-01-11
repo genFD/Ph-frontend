@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { FaShoppingCart, FaUserAstronaut, FaHeadphones } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import './homePage.css';
+import data from '../../data/data';
 
 const HomePage = () => {
   return (
-    <div className='container'>
+    <div className='homepage-container'>
       <Navbar />
       <ProductsList />
+      <Footer />
     </div>
   );
 };
@@ -62,7 +64,46 @@ const Navbar = () => {
 };
 
 const ProductsList = () => {
-  return <div>ProductsList</div>;
+  return (
+    <>
+      <h1 className='product-title'>Featured products</h1>
+      <span className='product-line'></span>
+      <div className='grid'>
+        {data.map(({ pName, image, price }) => {
+          return <Card pName={pName} image={image} price={price} />;
+        })}
+      </div>
+    </>
+  );
+};
+
+const Card = ({ pName, image, price }) => {
+  return (
+    <div className='card-container'>
+      <div className='card-img-container'>
+        <img src={image} alt='' />
+      </div>
+      <div className='card-content-container'>
+        <h3>{pName}</h3>
+        <h2 className='card-price'>
+          ${price}
+          <div className='card-btn-container'>
+            <Link to='/'>
+              <button className='card-btn'>Buy now</button>
+            </Link>
+          </div>
+        </h2>
+      </div>
+    </div>
+  );
+};
+
+const Footer = () => {
+  return (
+    <footer className='footer'>
+      <p>Copyright &copy; Premium Headphones</p>
+    </footer>
+  );
 };
 
 export default HomePage;
