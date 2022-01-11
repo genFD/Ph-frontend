@@ -47,7 +47,9 @@ const RegisterPage = () => {
           </div>
           <p className='text'>
             Already a member?
-            <Link to='/login'>Login</Link>
+            <Link to='/login' style={{ color: '#ffff' }}>
+              Login
+            </Link>
           </p>
         </form>
       </div>
