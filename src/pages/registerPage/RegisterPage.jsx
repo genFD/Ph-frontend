@@ -47,7 +47,13 @@ const RegisterPage = () => {
           </div>
           <p className='text'>
             Already a member?
-            <Link to='/login' style={{ color: '#ffff' }}>
+            <Link
+              to='/login'
+              style={{
+                color: '#ffff',
+                textDecoration: 'none',
+                marginLeft: '.5rem',
+              }}>
               Login
             </Link>
           </p>

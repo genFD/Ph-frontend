@@ -3,6 +3,7 @@ import { FaShoppingCart, FaUserAstronaut, FaHeadphones } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import './homePage.css';
 import data from '../../data/data';
+import Button from '../../components/Button';
 
 const HomePage = () => {
   return (
@@ -14,7 +15,7 @@ const HomePage = () => {
   );
 };
 
-const Navbar = () => {
+export const Navbar = () => {
   const [openNav, setOpenNav] = useState(false);
   return (
     <nav id='nav'>
@@ -69,15 +70,24 @@ const ProductsList = () => {
       <h1 className='product-title'>Featured products</h1>
       <span className='product-line'></span>
       <div className='grid'>
-        {data.map(({ pName, image, price }) => {
-          return <Card pName={pName} image={image} price={price} />;
+        {data.map(({ pName, image, price, _id }) => {
+          console.log(_id);
+          return (
+            <Card
+              key={_id}
+              pName={pName}
+              image={image}
+              price={price}
+              id={_id}
+            />
+          );
         })}
       </div>
     </>
   );
 };
 
-const Card = ({ pName, image, price }) => {
+const Card = ({ pName, image, price, id }) => {
   return (
     <div className='card-container'>
       <div className='card-img-container'>
@@ -88,8 +98,9 @@ const Card = ({ pName, image, price }) => {
         <h2 className='card-price'>
           ${price}
           <div className='card-btn-container'>
-            <Link to='/'>
+            <Link to={`/details/${id}`}>
               <button className='card-btn'>Buy now</button>
+              {/* <Button>Buy now</Button> */}
             </Link>
           </div>
         </h2>
