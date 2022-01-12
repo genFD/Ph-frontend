@@ -194,7 +194,7 @@ ul.active .icon .line2 {
   opacity: 1;
 }
 .card-btn:active {
-  transform: scale(0.88);
+  transform: scale(0.89);
 }
 .product-title {
   margin: 3.2rem;
