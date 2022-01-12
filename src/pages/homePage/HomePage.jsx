@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { FaShoppingCart, FaUserAstronaut, FaHeadphones } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import './homePage.css';
-import data from '../../data/data';
-import Button from '../../components/Button';
 
 const HomePage = () => {
   return (
@@ -65,13 +64,21 @@ export const Navbar = () => {
 };
 
 const ProductsList = () => {
+  const [products, setProducts] = useState([]);
+  const fetchProducts = async () => {
+    const { data } = await axios.get('/api/products');
+    const products = data;
+    setProducts(products);
+  };
+  useEffect(() => {
+    fetchProducts();
+  }, []);
   return (
     <>
       <h1 className='product-title'>Featured products</h1>
       <span className='product-line'></span>
       <div className='grid'>
-        {data.map(({ pName, image, price, _id }) => {
-          console.log(_id);
+        {products.map(({ pName, image, price, _id }) => {
           return (
             <Card
               key={_id}

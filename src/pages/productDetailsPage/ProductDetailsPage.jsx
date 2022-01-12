@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import axios from 'axios';
 import {
   FaStar,
   FaShoppingCart,
@@ -7,22 +8,29 @@ import {
   FaStarHalfAlt,
   FaRegStar,
 } from 'react-icons/fa';
-import products from '../../data/data';
 import './productdetails.css';
 import { Navbar } from '../homePage/HomePage';
 
 const ProductDetailsPage = () => {
+  const [product, setProduct] = useState({});
   const params = useParams();
   const productId = Number(params.id);
-  const product = products.find((p) => p._id === productId);
+  const fetchProduct = async () => {
+    const { data } = await axios.get(`/api/products/${productId}`);
+    setProduct(data);
+  };
+  useEffect(() => {
+    fetchProduct();
+  }, []);
+
   const {
-    imageDetails,
     description,
     pName,
     price,
     rating,
     numReviews,
     countInStock,
+    imageDetails,
   } = product;
   return (
     <>
