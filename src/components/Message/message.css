@@ -1,0 +1,12 @@
+.alert {
+  margin: 4rem;
+  width: 80vw;
+  height: 4rem;
+  background-color: crimson;
+}
+.error {
+  background-color: crimson;
+}
+.success {
+  background-color: #64ffda;
+}

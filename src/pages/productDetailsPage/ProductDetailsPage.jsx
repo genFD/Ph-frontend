@@ -1,27 +1,31 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams, Link, useNavigate, Routes, Route } from 'react-router-dom';
+
 import {
   FaStar,
   FaShoppingCart,
   FaArrowCircleLeft,
   FaStarHalfAlt,
   FaRegStar,
+  FaTimes,
 } from 'react-icons/fa';
 import './productdetails.css';
 import { Navbar } from '../homePage/HomePage';
+import { listProductDetails } from '../../actions/productActions';
+import Loader from '../../components/Loader/Loader';
+import Message from '../../components/Message/Message';
 
 const ProductDetailsPage = () => {
-  const [product, setProduct] = useState({});
+  const dispatch = useDispatch();
+  const productDetails = useSelector((state) => state.productDetails);
+  const { loading, error, product } = productDetails;
   const params = useParams();
-  const productId = Number(params.id);
-  const fetchProduct = async () => {
-    const { data } = await axios.get(`/api/products/${productId}`);
-    setProduct(data);
-  };
+  const productId = params.id;
+
   useEffect(() => {
-    fetchProduct();
-  }, []);
+    dispatch(listProductDetails(productId));
+  }, [dispatch]);
 
   const {
     description,
@@ -35,18 +39,24 @@ const ProductDetailsPage = () => {
   return (
     <>
       <Navbar />
-      <main className='product-details-container'>
-        <BackButton />
-        <Image image={imageDetails} />
-        <Info
-          description={description}
-          price={price}
-          name={pName}
-          rating={rating}
-          numReviews={numReviews}
-          countInStock={countInStock}
-        />
-      </main>
+      {loading ? (
+        <Loader />
+      ) : error ? (
+        <Message>{error}</Message>
+      ) : (
+        <main className='product-details-container'>
+          <BackButton />
+          <Image image={imageDetails} />
+          <Info
+            description={description}
+            price={price}
+            name={pName}
+            rating={rating}
+            numReviews={numReviews}
+            countInStock={countInStock}
+          />
+        </main>
+      )}
     </>
   );
 };
@@ -129,6 +139,21 @@ const Rating = ({ value, text }) => {
     </div>
   );
 };
+// const SideDrawer = () => {
+//   return (
+
+//       <div className='side-drawer'>
+//         <FaTimes className='close-btn' />
+//         <div className='products-review-cart '>
+//           <h1>el1</h1>
+//           <h1>el1</h1>
+//           <h1>el1</h1>
+//           <h1>el1</h1>
+//         </div>
+//         <button className='product-details-btn buy-now'>Buy Now</button>
+//       </div>
+//   );
+// };
 
 const Info = ({
   name,
@@ -138,6 +163,12 @@ const Info = ({
   numReviews,
   countInStock,
 }) => {
+  const [qty, setQty] = useState(1);
+  const params = useParams();
+  const navigate = useNavigate();
+  const addToCartHandler = () => {
+    navigate(`/cart/${params.id}?qty=${qty}`);
+  };
   return (
     <div className='product-details-info'>
       <h1 className='product-details-title'>{name}</h1>
@@ -145,11 +176,25 @@ const Info = ({
       <div className='product-details-rating'>
         <Rating value={rating} text={`${numReviews}`} />
       </div>
-
       <p className='product-price'>${price}</p>
       <p>{description}.</p>
       <p>{countInStock > 0 ? 'In stock' : 'Out of Stock'}</p>
+      {countInStock > 0 && (
+        <select
+          className='select'
+          value={qty}
+          onChange={(e) => setQty(e.target.value)}>
+          {[...Array(countInStock).keys()].map((x) => {
+            return (
+              <option key={x + 1} value={x + 1}>
+                {x + 1}
+              </option>
+            );
+          })}
+        </select>
+      )}
       <button
+        onClick={addToCartHandler}
         disabled={countInStock === 0}
         className={countInStock === 0 ? 'disabled' : 'product-details-btn'}>
         {countInStock === 0 ? 'out of stock' : 'Add to cart'}

@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
 import { FaShoppingCart, FaUserAstronaut, FaHeadphones } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { listProducts } from '../../actions/productActions';
 import './homePage.css';
+import Loader from '../../components/Loader/Loader';
+import Message from '../../components/Message/Message';
 
 const HomePage = () => {
   return (
@@ -17,7 +20,7 @@ const HomePage = () => {
 export const Navbar = () => {
   const [openNav, setOpenNav] = useState(false);
   return (
-    <nav id='nav'>
+    <nav className='nav'>
       <span>
         <Link to='/'>
           <FaHeadphones
@@ -38,7 +41,7 @@ export const Navbar = () => {
         </button>
         <div>
           <li>
-            <Link to='/'>
+            <Link to='/cart'>
               <FaShoppingCart
                 size={18}
                 style={{
@@ -64,32 +67,36 @@ export const Navbar = () => {
 };
 
 const ProductsList = () => {
-  const [products, setProducts] = useState([]);
-  const fetchProducts = async () => {
-    const { data } = await axios.get('/api/products');
-    const products = data;
-    setProducts(products);
-  };
+  const dispatch = useDispatch();
+  const productsList = useSelector((state) => state.productsList);
+  const { loading, error, products } = productsList;
+
   useEffect(() => {
-    fetchProducts();
-  }, []);
+    dispatch(listProducts());
+  }, [dispatch]);
   return (
     <>
       <h1 className='product-title'>Featured products</h1>
       <span className='product-line'></span>
-      <div className='grid'>
-        {products.map(({ pName, image, price, _id }) => {
-          return (
-            <Card
-              key={_id}
-              pName={pName}
-              image={image}
-              price={price}
-              id={_id}
-            />
-          );
-        })}
-      </div>
+      {loading ? (
+        <Loader />
+      ) : error ? (
+        <Message>{error}</Message>
+      ) : (
+        <div className='grid'>
+          {products.map(({ pName, image, price, _id }) => {
+            return (
+              <Card
+                key={_id}
+                pName={pName}
+                image={image}
+                price={price}
+                id={_id}
+              />
+            );
+          })}
+        </div>
+      )}
     </>
   );
 };
@@ -105,8 +112,8 @@ const Card = ({ pName, image, price, id }) => {
         <h2 className='card-price'>
           ${price}
           <div className='card-btn-container'>
-            <Link to={`/details/${id}`}>
-              <button className='card-btn'>Buy now</button>
+            <Link to={`/products/${id}`}>
+              <button className='card-btn'>More details</button>
               {/* <Button>Buy now</Button> */}
             </Link>
           </div>
