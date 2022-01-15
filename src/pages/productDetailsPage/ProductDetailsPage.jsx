@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, Link, useNavigate, Routes, Route } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 
 import {
   FaStar,
@@ -42,7 +42,7 @@ const ProductDetailsPage = () => {
       {loading ? (
         <Loader />
       ) : error ? (
-        <Message>{error}</Message>
+        <Message error='error'>{error}</Message>
       ) : (
         <main className='product-details-container'>
           <BackButton />
@@ -60,7 +60,7 @@ const ProductDetailsPage = () => {
     </>
   );
 };
-const BackButton = () => {
+export const BackButton = () => {
   return (
     <Link to='/'>
       <FaArrowCircleLeft
@@ -141,17 +141,16 @@ const Rating = ({ value, text }) => {
 };
 // const SideDrawer = () => {
 //   return (
-
-//       <div className='side-drawer'>
-//         <FaTimes className='close-btn' />
-//         <div className='products-review-cart '>
-//           <h1>el1</h1>
-//           <h1>el1</h1>
-//           <h1>el1</h1>
-//           <h1>el1</h1>
-//         </div>
-//         <button className='product-details-btn buy-now'>Buy Now</button>
+//     <div className='side-drawer show'>
+//       <FaTimes className='close-btn' />
+//       <div className='products-review-cart '>
+//         <h1>el1</h1>
+//         <h1>el1</h1>
+//         <h1>el1</h1>
+//         <h1>el1</h1>
 //       </div>
+//       <button className='product-details-btn buy-now'>Buy Now</button>
+//     </div>
 //   );
 // };
 

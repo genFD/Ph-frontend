@@ -1,0 +1,105 @@
+.cart-page-container {
+  font-family: 'Josefin Sans', sans-serif;
+  min-height: calc(100vh - 5vh);
+  overflow: hidden;
+  padding: 4rem 3rem;
+  margin: 0;
+  color: #64ffda;
+  background: #0a192f;
+  display: flex;
+  flex-direction: column;
+}
+.cart-page-container h1 {
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.empty-cart-message {
+  color: #64ffda;
+}
+.cart-items {
+  width: 90vw;
+  margin: 0 auto;
+  margin-top: 20px;
+  /* padding: 2.5rem 1rem; */
+  max-width: 40rem;
+  /* border: 1px solid red; */
+}
+.cart-item {
+  display: grid;
+  align-items: center;
+  grid-template-columns: auto 1fr auto;
+  grid-column-gap: 1.5rem;
+  margin: 0 0 1.5rem 0;
+  /* padding-bottom: 1rem; */
+  /* border-bottom: 1px solid #64ffda; */
+}
+.cart-item h4 {
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+}
+.cart-item img {
+  width: 8rem;
+  height: 8rem;
+  object-fit: cover;
+}
+.delete-btn {
+  background: transparent;
+  border-color: transparent;
+  cursor: pointer;
+  font-size: 1rem;
+  margin: 1rem 0 0 0;
+  transition: all linear 0.3s;
+}
+
+.delete-btn {
+  color: lightgrey;
+}
+.delete-btn:hover {
+  color: tomato;
+}
+.delete-btn:active {
+  transform: scale(0.88);
+}
+
+hr {
+  background: #64ffda;
+  border-color: transparent;
+  border-width: 0.25px;
+}
+.cart-items footer {
+  text-align: center;
+}
+.cart-total h4 {
+  text-transform: capitalize;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+.cart-total span {
+  font-size: 2rem;
+}
+.checkout-btn {
+  background: transparent;
+  padding: 1rem 3rem;
+  color: #64ffda;
+  border: 1px solid #64ffda;
+  /* margin-top: 2.25rem; */
+  border-radius: var(--br);
+  text-transform: uppercase;
+  /* letter-spacing: var(--spacing); */
+  /* display: inline-block; */
+  font-weight: 700;
+  transition: all linear 0.3s;
+  font-size: 0.875rem;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+.checkout-btn:hover {
+  color: #0a192f;
+  background: #64ffda;
+}
+.checkout-btn:active {
+  transform: scale(0.88);
+}
